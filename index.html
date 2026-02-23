@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equator Solar — Solar Energy Solutions for East Africa</title>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: { DEFAULT:'#217A3C', dark:'#195f2e', light:'#2d9e50', xlight:'#EAF4EE' },
+            orange: { DEFAULT:'#F5A020', dark:'#d4891a' },
+            ink:   { DEFAULT:'#1D1D1F', muted:'#6E6E73', faint:'#8E8E93' },
+            surface: { DEFAULT:'#FFFFFF', alt:'#F5F5F7', card:'#FAFAFA' },
+          },
+          fontFamily: {
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px; line-height: 1.7;
+      color: #1D1D1F; background: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Fade-up ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fu   { animation: fadeUp .75s cubic-bezier(.22,1,.36,1) both; }
+    .fu-1 { animation: fadeUp .75s .12s cubic-bezier(.22,1,.36,1) both; }
+    .fu-2 { animation: fadeUp .75s .24s cubic-bezier(.22,1,.36,1) both; }
+    .fu-3 { animation: fadeUp .75s .36s cubic-bezier(.22,1,.36,1) both; }
+
+    /* ── Float ── */
+    @keyframes float {
+      0%,100% { transform:translateY(0) rotate(0deg); }
+      50%      { transform:translateY(-12px) rotate(2deg); }
+    }
+    .float { animation: float 7s ease-in-out infinite; }
+
+    /* ── Nav ── */
+    #main-nav { transition: background .3s ease, box-shadow .3s ease; }
+    .nav-link {
+      position: relative; font-size: 15px; font-weight: 500;
+      text-decoration: none; transition: color .2s ease;
+    }
+    .nav-link::after {
+      content:''; position:absolute; bottom:-2px; left:0;
+      width:0; height:1.5px; background:#217A3C;
+      transition: width .22s ease;
+    }
+    .nav-link:hover::after { width:100%; }
+
+    /* ── Divider accent ── */
+    .divider {
+      width:36px; height:3px;
+      background: linear-gradient(90deg, #217A3C, #F5A020);
+      border-radius:2px;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:7px;
+      font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px;
+      padding:13px 26px; border-radius:100px;
+      background:#217A3C; color:#fff; text-decoration:none;
+      box-shadow: 0 2px 8px rgba(33,122,60,.3), 0 4px 16px rgba(33,122,60,.15);
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover  { background:#195f2e; transform:translateY(-1px); box-shadow:0 4px 14px rgba(33,122,60,.4),0 8px 24px rgba(33,122,60,.18); }
+    .btn-primary:active { transform:translateY(0); }
+    .btn-primary:focus-visible { outline:2px solid #217A3C; outline-offset:3px; }
+
+    .btn-white {
+      display:inline-flex; align-items:center; gap:7px;
+      font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px;
+      padding:12px 26px; border-radius:100px;
+      border:1.5px solid rgba(255,255,255,.5); color:#fff;
+      background:transparent; text-decoration:none;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .btn-white:hover  { border-color:rgba(255,255,255,.9); background:rgba(255,255,255,.1); transform:translateY(-1px); }
+    .btn-white:active { transform:translateY(0); }
+    .btn-white:focus-visible { outline:2px solid #fff; outline-offset:3px; }
+
+    .btn-outline {
+      display:inline-flex; align-items:center; gap:7px;
+      font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px;
+      padding:12px 26px; border-radius:100px;
+      border:1.5px solid #217A3C; color:#217A3C;
+      background:transparent; text-decoration:none;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .btn-outline:hover  { background:#217A3C; color:#fff; transform:translateY(-1px); }
+    .btn-outline:active { transform:translateY(0); }
+    .btn-outline:focus-visible { outline:2px solid #217A3C; outline-offset:3px; }
+
+    /* ── Card shadows ── */
+    .card-shadow {
+      box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06), 0 8px 20px rgba(0,0,0,.03);
+    }
+    .card-shadow-hover { transition: transform .32s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease; }
+    .card-shadow-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 4px 16px rgba(0,0,0,.07), 0 12px 32px rgba(33,122,60,.1), 0 24px 48px rgba(0,0,0,.06);
+    }
+
+    /* ── Photo overlay on cards ── */
+    .photo-overlay { background: linear-gradient(to top, rgba(10,28,16,.85) 0%, rgba(10,28,16,.2) 60%, transparent 100%); }
+
+    /* ── Stat numbers ── */
+    .stat-num {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size: clamp(40px,5vw,64px);
+      font-weight:800; letter-spacing:-.045em; line-height:1;
+      color:#217A3C;
+    }
+
+    /* ── Process step connector ── */
+    .step-line {
+      flex:1; height:1px;
+      background: linear-gradient(90deg, #217A3C44, #F5A02044);
+    }
+
+    /* ── Tag ── */
+    .tag {
+      display:inline-block;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:11px; font-weight:600;
+      letter-spacing:.12em; text-transform:uppercase;
+      padding:4px 10px; border-radius:100px;
+      background:#EAF4EE; color:#217A3C;
+    }
+
+    /* ── Green accent card (last why card) ── */
+    .green-card { background:#217A3C; }
+    .green-card h3, .green-card p { color:white; }
+    .green-card p { color:rgba(255,255,255,.72); }
+
+    /* ── Testimonial quote card ── */
+    .quote-card {
+      background:#fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.06);
+    }
+
+    /* ── Image with natural AR ── */
+    .img-cover { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:11px; font-weight:600;
+      letter-spacing:.16em; text-transform:uppercase;
+      color:#217A3C;
+    }
+
+    /* ── Scroll cue ── */
+    @keyframes scrollDrop {
+      0%  { transform:translateY(-4px); opacity:0; }
+      50% { opacity:1; }
+      100%{ transform:translateY(4px); opacity:0; }
+    }
+    .scroll-drop { animation: scrollDrop 1.8s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50" style="background:transparent;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[68px] flex items-center justify-between">
+
+    <a href="#" aria-label="Equator Solar">
+      <img id="nav-logo" src="brand_assets/EQSLOGO-01.png" alt="Equator Solar"
+           class="h-8" style="filter:brightness(0) invert(1);">
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#solutions" class="nav-link" id="nl1" style="color:rgba(255,255,255,.85);">Solutions</a>
+      <a href="#services"  class="nav-link" id="nl2" style="color:rgba(255,255,255,.85);">Services</a>
+      <a href="#projects"  class="nav-link" id="nl3" style="color:rgba(255,255,255,.85);">Projects</a>
+      <a href="#about"     class="nav-link" id="nl4" style="color:rgba(255,255,255,.85);">About</a>
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+    </div>
+
+    <button id="mob-btn" class="md:hidden p-2 text-white" aria-label="Menu">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mob-menu" class="hidden md:hidden bg-white border-b border-gray-100 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-4">
+      <a href="#solutions" class="nav-link text-[#1D1D1F]">Solutions</a>
+      <a href="#services"  class="nav-link text-[#1D1D1F]">Services</a>
+      <a href="#projects"  class="nav-link text-[#1D1D1F]">Projects</a>
+      <a href="#about"     class="nav-link text-[#1D1D1F]">About</a>
+      <a href="#contact" class="btn-primary w-fit">Get in Touch</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     HERO — full-bleed dark green
+══════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-end overflow-hidden"
+         style="background:#0B1A10;">
+
+  <!-- Radial depth gradients for dimensionality -->
+  <div class="absolute inset-0 pointer-events-none" style="
+    background:
+      radial-gradient(ellipse 90% 70% at 70% 20%, rgba(33,122,60,.22) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(245,160,32,.08) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 80% at 50% 100%, rgba(6,14,8,.9) 0%, transparent 65%);
+  "></div>
+
+  <!-- Subtle grid texture overlay -->
+  <div class="absolute inset-0 pointer-events-none opacity-[.04]"
+       style="background-image: linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
+              background-size: 60px 60px;"></div>
+
+  <!-- Floating ring mark -->
+  <div class="float absolute right-[6%] top-[18%] w-56 h-56 lg:w-96 lg:h-96 opacity-[.12] pointer-events-none">
+    <img src="brand_assets/EQSLOGO_graphic.png" alt="" class="w-full h-full object-contain">
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10 pb-20 pt-32">
+
+    <div class="max-w-[720px]">
+      <div class="fu flex items-center gap-2.5 mb-6">
+        <span class="w-2 h-2 rounded-full bg-[#F5A020]"
+              style="box-shadow:0 0 8px rgba(245,160,32,.8);"></span>
+        <span class="font-display font-semibold text-[#F5A020] text-[11px] tracking-[.18em] uppercase">
+          East Africa's Solar EPC Leader
+        </span>
+      </div>
+
+      <h1 class="fu-1 font-display font-extrabold text-white leading-[.95] mb-6"
+          style="font-size:clamp(48px,7.5vw,92px); letter-spacing:-.03em;">
+        Powering<br>East Africa<br>
+        <span style="background:linear-gradient(110deg,#4eba6f,#F5A020);
+                     -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+                     background-clip:text;">with Solar.</span>
+      </h1>
+
+      <p class="fu-2 text-white/70 text-lg leading-relaxed mb-10 max-w-[500px]">
+        Engineering-grade solar PV solutions from site assessment through commissioning
+        and beyond — built to last 25+ years across Uganda and East Africa.
+      </p>
+
+      <div class="fu-3 flex flex-wrap gap-4 mb-16">
+        <a href="#contact" class="btn-primary">
+          Start Your Project
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#solutions" class="btn-white">Explore Solutions</a>
+      </div>
+
+      <!-- Trust bar -->
+      <div class="fu-3 flex flex-wrap items-center gap-6 pt-8 border-t border-white/15">
+        <span class="text-white/40 text-xs font-display font-medium tracking-widest uppercase">
+          Trusted by
+        </span>
+        <span class="text-white/60 text-sm font-display font-semibold">Utilities</span>
+        <span class="w-px h-4 bg-white/20"></span>
+        <span class="text-white/60 text-sm font-display font-semibold">IPPs</span>
+        <span class="w-px h-4 bg-white/20"></span>
+        <span class="text-white/60 text-sm font-display font-semibold">Commercial</span>
+        <span class="w-px h-4 bg-white/20"></span>
+        <span class="text-white/60 text-sm font-display font-semibold">Industrial</span>
+        <span class="w-px h-4 bg-white/20"></span>
+        <span class="text-white/60 text-sm font-display font-semibold">NGOs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+    <div class="scroll-drop text-white/35">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     STATS STRIP
+══════════════════════════════════════ -->
+<section class="bg-white border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14 lg:py-18">
+    <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
+
+      <div class="text-center px-6 py-4">
+        <div class="stat-num">500<span class="text-[#F5A020]">+</span></div>
+        <div class="mt-2 font-display font-semibold text-[#6E6E73] text-xs tracking-[.14em] uppercase">MW Deployed</div>
+      </div>
+      <div class="text-center px-6 py-4">
+        <div class="stat-num">80<span class="text-[#F5A020]">+</span></div>
+        <div class="mt-2 font-display font-semibold text-[#6E6E73] text-xs tracking-[.14em] uppercase">Projects Delivered</div>
+      </div>
+      <div class="text-center px-6 py-4">
+        <div class="stat-num">15<span class="text-[#F5A020]">+</span></div>
+        <div class="mt-2 font-display font-semibold text-[#6E6E73] text-xs tracking-[.14em] uppercase">Years Experience</div>
+      </div>
+      <div class="text-center px-6 py-4">
+        <div class="stat-num">12<span class="text-[#F5A020]">+</span></div>
+        <div class="mt-2 font-display font-semibold text-[#6E6E73] text-xs tracking-[.14em] uppercase">Countries Served</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     SOLUTIONS  (photo cards)
+══════════════════════════════════════ -->
+<section id="solutions" class="bg-[#F5F5F7] py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <div class="divider mb-4"></div>
+        <h2 class="font-display font-bold text-[#1D1D1F] leading-tight"
+            style="font-size:clamp(28px,4vw,48px); letter-spacing:-.025em;">
+          Solar Solutions<br>for Every Scale
+        </h2>
+      </div>
+      <p class="text-[#6E6E73] text-[16px] max-w-sm leading-relaxed md:text-right">
+        From a single rooftop to a multi-megawatt grid-scale plant — we design and
+        build systems that perform from day one.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <!-- Residential -->
+      <div class="card-shadow card-shadow-hover bg-white rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+          <img src="https://placehold.co/480x360/1a4a2a/1a4a2a?text=+"
+               alt="Residential solar installation" class="img-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
+          <span class="absolute top-3 left-3 tag">Residential</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-semibold text-[#1D1D1F] text-[19px] mb-2">Home &amp; Residential</h3>
+          <p class="text-[#6E6E73] text-sm leading-relaxed mb-4">
+            Grid-tied or off-grid with battery storage. Reliable day-and-night power for homes, residences and apartments.
+          </p>
+          <ul class="space-y-1.5 mb-5">
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Interruption-free power
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Significant cost savings
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Full energy autonomy
+            </li>
+          </ul>
+          <a href="#contact" class="text-[#217A3C] font-display font-semibold text-sm flex items-center gap-1.5 hover:gap-3 transition-all duration-200">
+            Get a Quote
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Commercial -->
+      <div class="card-shadow card-shadow-hover bg-white rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+          <img src="https://placehold.co/480x360/0f3520/0f3520?text=+"
+               alt="Commercial solar rooftop" class="img-cover">
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
+          <span class="absolute top-3 left-3 tag">Commercial</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-semibold text-[#1D1D1F] text-[19px] mb-2">Commercial &amp; C&amp;I</h3>
+          <p class="text-[#6E6E73] text-sm leading-relaxed mb-4">
+            Boost productivity with uninterrupted power while cutting energy costs for offices, hotels, hospitals and schools.
+          </p>
+          <ul class="space-y-1.5 mb-5">
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Power backup &amp; continuity
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Energy cost reduction
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Eco-friendly electricity
+            </li>
+          </ul>
+          <a href="#contact" class="text-[#217A3C] font-display font-semibold text-sm flex items-center gap-1.5 hover:gap-3 transition-all duration-200">
+            Get a Quote
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Industrial -->
+      <div class="card-shadow card-shadow-hover bg-white rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+          <img src="https://placehold.co/480x360/142e1e/142e1e?text=+"
+               alt="Industrial solar installation" class="img-cover">
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
+          <span class="absolute top-3 left-3 tag">Industrial</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-semibold text-[#1D1D1F] text-[19px] mb-2">Industrial &amp; Agro</h3>
+          <p class="text-[#6E6E73] text-sm leading-relaxed mb-4">
+            Cheaper than grid or diesel — solar cuts operational costs from day one for factories and agro-processors.
+          </p>
+          <ul class="space-y-1.5 mb-5">
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              UMEME + diesel savings
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              OPEX reduction
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Sustainable investment
+            </li>
+          </ul>
+          <a href="#contact" class="text-[#217A3C] font-display font-semibold text-sm flex items-center gap-1.5 hover:gap-3 transition-all duration-200">
+            Get a Quote
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Utility Scale -->
+      <div class="card-shadow card-shadow-hover bg-white rounded-2xl overflow-hidden">
+        <div class="relative overflow-hidden" style="aspect-ratio:4/3;">
+          <img src="https://placehold.co/480x360/08200f/08200f?text=+"
+               alt="Utility scale solar plant" class="img-cover">
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
+          <span class="absolute top-3 left-3" style="display:inline-block;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:rgba(245,160,32,.2);color:#F5A020;">Utility Scale</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display font-semibold text-[#1D1D1F] text-[19px] mb-2">Utility &amp; IPP</h3>
+          <p class="text-[#6E6E73] text-sm leading-relaxed mb-4">
+            Grid-scale solar power plants — a high-value, reliable investment for IPPs, developers and utilities.
+          </p>
+          <ul class="space-y-1.5 mb-5">
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              High-value investment
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Reliable + bankable
+            </li>
+            <li class="flex items-center gap-2 text-[13px] text-[#1D1D1F]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 7l3 3L11.5 4" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              100% green energy
+            </li>
+          </ul>
+          <a href="#contact" class="text-[#217A3C] font-display font-semibold text-sm flex items-center gap-1.5 hover:gap-3 transition-all duration-200">
+            Get a Quote
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     ABOUT  (split, light)
+══════════════════════════════════════ -->
+<section id="about" class="bg-white py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Photos column — stacked/offset -->
+      <div class="relative">
+        <!-- Main photo -->
+        <div class="rounded-2xl overflow-hidden card-shadow" style="aspect-ratio:3/4; max-height:560px;">
+          <img src="https://placehold.co/680x900/133526/133526?text=+"
+               alt="Equator Solar team" class="img-cover">
+        </div>
+        <!-- Inset smaller photo -->
+        <div class="absolute -bottom-6 -right-4 lg:-right-8 w-44 lg:w-56 rounded-xl overflow-hidden card-shadow border-4 border-white">
+          <img src="https://placehold.co/280x210/0d2b1a/0d2b1a?text=+"
+               alt="Project site" class="img-cover">
+        </div>
+        <!-- 98.5% badge -->
+        <div class="absolute top-6 -right-4 lg:-right-8 bg-white rounded-2xl px-5 py-4 card-shadow">
+          <div class="font-display font-extrabold text-[#217A3C] leading-none"
+               style="font-size:34px; letter-spacing:-.04em;">98.5%</div>
+          <div class="font-display font-medium text-[#6E6E73] text-[10px] tracking-[.12em] uppercase mt-0.5">System Uptime</div>
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="lg:pl-4">
+        <div class="divider mb-5"></div>
+        <h2 class="font-display font-bold text-[#1D1D1F] mb-6 leading-tight"
+            style="font-size:clamp(28px,3.8vw,46px); letter-spacing:-.025em;">
+          Ugandan &amp; German Expertise.<br>
+          <span class="text-[#217A3C]">East African Commitment.</span>
+        </h2>
+
+        <p class="text-[#6E6E73] text-[16px] leading-relaxed mb-5">
+          EQUATOR SOLAR is a leading solar PV and energy efficiency solution provider
+          in the East African market. Founded and operated by a team of Ugandan and
+          German solar professionals, we bring world-class engineering standards to
+          every project we undertake.
+        </p>
+        <p class="text-[#6E6E73] text-[16px] leading-relaxed mb-8">
+          Based in Kampala, Uganda, we serve customers across the region with
+          a proven track record of satisfied clients and reliably performing
+          installations — backed by top-brand equipment and long-term warranty schemes.
+        </p>
+
+        <!-- Mini stats row -->
+        <div class="grid grid-cols-3 gap-4 p-5 bg-[#F5F5F7] rounded-2xl mb-8">
+          <div class="text-center">
+            <div class="font-display font-extrabold text-[#217A3C] text-2xl leading-none mb-1">2009</div>
+            <div class="text-[#6E6E73] text-xs font-medium">Founded</div>
+          </div>
+          <div class="text-center border-x border-gray-200">
+            <div class="font-display font-extrabold text-[#217A3C] text-2xl leading-none mb-1">UG+DE</div>
+            <div class="text-[#6E6E73] text-xs font-medium">Team Origin</div>
+          </div>
+          <div class="text-center">
+            <div class="font-display font-extrabold text-[#217A3C] text-2xl leading-none mb-1">12+</div>
+            <div class="text-[#6E6E73] text-xs font-medium">Countries</div>
+          </div>
+        </div>
+
+        <!-- Checklist -->
+        <ul class="space-y-3 mb-9">
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 5l2.5 2.5L8 3" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-[#1D1D1F] text-[15px] font-medium">Engineering-grade design and project management</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 5l2.5 2.5L8 3" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-[#1D1D1F] text-[15px] font-medium">World-class products with long-term warranties</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 5l2.5 2.5L8 3" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-[#1D1D1F] text-[15px] font-medium">In-house O&amp;M for maximum system performance</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded-full bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M2 5l2.5 2.5L8 3" stroke="#217A3C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-[#1D1D1F] text-[15px] font-medium">Deep knowledge of the Uganda and East African market</span>
+          </li>
+        </ul>
+
+        <a href="#contact" class="btn-primary">
+          Get in Touch
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     EPC SERVICES  (light bg)
+══════════════════════════════════════ -->
+<section id="services" class="bg-[#F5F5F7] py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="text-center mb-14">
+      <div class="divider mx-auto mb-4"></div>
+      <h2 class="font-display font-bold text-[#1D1D1F] mb-4 leading-tight"
+          style="font-size:clamp(28px,4vw,48px); letter-spacing:-.025em;">
+        Full-Cycle EPC Services
+      </h2>
+      <p class="text-[#6E6E73] text-lg max-w-lg mx-auto leading-relaxed">
+        We cover every stage of your solar project — from first site visit
+        to decades of ongoing maintenance.
+      </p>
+    </div>
+
+    <!-- Steps with connector lines on desktop -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Step 1 -->
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover relative">
+        <div class="w-12 h-12 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="font-display font-bold text-[#F5A020] text-4xl leading-none mb-3"
+             style="letter-spacing:-.04em;">01</div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-lg mb-2">Engineering</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">
+          Site assessment, feasibility studies, tailored system design and
+          technical specifications — built to perform for 25+ years.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-12 h-12 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </div>
+        <div class="font-display font-bold text-[#F5A020] text-4xl leading-none mb-3"
+             style="letter-spacing:-.04em;">02</div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-lg mb-2">Procurement</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">
+          World-class equipment from industry-leading manufacturers with
+          long-term warranty schemes at competitive prices.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-12 h-12 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+            <line x1="12" y1="12" x2="12" y2="16"/>
+            <line x1="10" y1="14" x2="14" y2="14"/>
+          </svg>
+        </div>
+        <div class="font-display font-bold text-[#F5A020] text-4xl leading-none mb-3"
+             style="letter-spacing:-.04em;">03</div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-lg mb-2">Construction</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">
+          Professional installation by our certified teams — on time, on budget,
+          to the highest safety and quality standards.
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bg-[#217A3C] rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+               stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="font-display font-bold text-[#F5A020] text-4xl leading-none mb-3"
+             style="letter-spacing:-.04em;">04</div>
+        <h3 class="font-display font-semibold text-white text-lg mb-2">O&amp;M</h3>
+        <p class="text-white/70 text-sm leading-relaxed">
+          In-house operations and maintenance teams ensure peak performance and
+          protect your investment for its entire lifespan.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FEATURED PROJECT  (full-bleed photo banner)
+══════════════════════════════════════ -->
+<section class="relative overflow-hidden" style="min-height:480px;">
+
+  <img src="https://placehold.co/1440x600/071a0d/071a0d?text=+"
+       alt="Featured solar project" class="absolute inset-0 w-full h-full object-cover">
+  <div class="absolute inset-0"
+       style="background:linear-gradient(105deg, rgba(6,18,10,.88) 0%, rgba(6,18,10,.6) 50%, rgba(6,18,10,.3) 100%);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+
+    <div class="max-w-lg">
+      <span class="section-label mb-3 block">Featured Project</span>
+      <h2 class="font-display font-bold text-white leading-tight mb-4"
+          style="font-size:clamp(28px,4vw,48px); letter-spacing:-.025em;">
+        50 MW Ground-Mounted<br>Solar Plant, Uganda
+      </h2>
+      <p class="text-white/65 text-[16px] leading-relaxed mb-6">
+        One of the largest solar installations in East Africa — designed, procured,
+        constructed and maintained by the Equator Solar team. Grid-connected and
+        generating clean power for thousands of homes.
+      </p>
+      <a href="#contact" class="btn-primary">View Project Details</a>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 gap-4 flex-shrink-0">
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
+        <div class="font-display font-extrabold text-white text-3xl leading-none mb-1"
+             style="letter-spacing:-.04em;">50 MW</div>
+        <div class="text-white/55 text-xs font-display font-medium tracking-wide uppercase">Installed Capacity</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
+        <div class="font-display font-extrabold text-white text-3xl leading-none mb-1"
+             style="letter-spacing:-.04em;">75K+</div>
+        <div class="text-white/55 text-xs font-display font-medium tracking-wide uppercase">Homes Powered</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
+        <div class="font-display font-extrabold text-[#4eba6f] text-3xl leading-none mb-1"
+             style="letter-spacing:-.04em;">60K t</div>
+        <div class="text-white/55 text-xs font-display font-medium tracking-wide uppercase">CO₂ Avoided / yr</div>
+      </div>
+      <div class="bg-[#F5A020]/20 backdrop-blur-sm rounded-2xl p-6 border border-[#F5A020]/25">
+        <div class="font-display font-extrabold text-[#F5A020] text-3xl leading-none mb-1"
+             style="letter-spacing:-.04em;">25 yr</div>
+        <div class="text-white/55 text-xs font-display font-medium tracking-wide uppercase">Design Lifetime</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PROJECTS GALLERY
+══════════════════════════════════════ -->
+<section id="projects" class="bg-white py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <div class="divider mb-4"></div>
+        <h2 class="font-display font-bold text-[#1D1D1F] leading-tight"
+            style="font-size:clamp(28px,4vw,48px); letter-spacing:-.025em;">
+          Selected Projects
+        </h2>
+      </div>
+      <p class="text-[#6E6E73] text-[16px] max-w-sm leading-relaxed md:text-right">
+        A growing portfolio across Uganda and East Africa — from community mini-grids
+        to multi-megawatt grid-scale plants.
+      </p>
+    </div>
+
+    <!-- 3-column grid with stagger -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="group relative rounded-2xl overflow-hidden card-shadow" style="aspect-ratio:3/4;">
+        <img src="https://placehold.co/560x750/061610/061610?text=+"
+             alt="Utility scale solar plant"
+             class="img-cover transition-transform duration-500 group-hover:scale-[1.04]">
+        <div class="photo-overlay absolute inset-0"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 z-10">
+          <span class="font-display font-semibold text-[#F5A020] text-[10px] tracking-[.18em] uppercase mb-2 block">Utility Scale — Uganda</span>
+          <h3 class="font-display font-bold text-white text-xl leading-tight mb-2">
+            Grid-Scale Solar<br>Power Plant
+          </h3>
+          <p class="text-white/60 text-sm">50 MW ground-mounted plant supplying the national grid.</p>
+        </div>
+      </div>
+
+      <div class="group relative rounded-2xl overflow-hidden card-shadow md:mt-10" style="aspect-ratio:3/4;">
+        <img src="https://placehold.co/560x750/0a2218/0a2218?text=+"
+             alt="C&I rooftop solar"
+             class="img-cover transition-transform duration-500 group-hover:scale-[1.04]">
+        <div class="photo-overlay absolute inset-0"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 z-10">
+          <span class="font-display font-semibold text-[#F5A020] text-[10px] tracking-[.18em] uppercase mb-2 block">Commercial &amp; Industrial — Kampala</span>
+          <h3 class="font-display font-bold text-white text-xl leading-tight mb-2">
+            C&amp;I Rooftop<br>System Portfolio
+          </h3>
+          <p class="text-white/60 text-sm">Large rooftop installations for factories and commercial facilities.</p>
+        </div>
+      </div>
+
+      <div class="group relative rounded-2xl overflow-hidden card-shadow" style="aspect-ratio:3/4;">
+        <img src="https://placehold.co/560x750/061610/061610?text=+"
+             alt="Mini-grid with battery storage"
+             class="img-cover transition-transform duration-500 group-hover:scale-[1.04]">
+        <div class="photo-overlay absolute inset-0"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 z-10">
+          <span class="font-display font-semibold text-[#F5A020] text-[10px] tracking-[.18em] uppercase mb-2 block">Mini-Grid + BESS — Rural Uganda</span>
+          <h3 class="font-display font-bold text-white text-xl leading-tight mb-2">
+            Solar Mini-Grid &amp;<br>Battery Storage
+          </h3>
+          <p class="text-white/60 text-sm">Hybrid solar + battery systems bringing clean power to off-grid communities.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="#contact" class="btn-outline">Discuss Your Project</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     WHY EQS  (light, clean grid)
+══════════════════════════════════════ -->
+<section class="bg-[#F5F5F7] py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="text-center mb-14">
+      <div class="divider mx-auto mb-4"></div>
+      <h2 class="font-display font-bold text-[#1D1D1F] mb-4 leading-tight"
+          style="font-size:clamp(28px,4vw,48px); letter-spacing:-.025em;">
+        Why Equator Solar
+      </h2>
+      <p class="text-[#6E6E73] text-lg max-w-md mx-auto leading-relaxed">
+        We protect your investment and maximise returns over a 25+ year system lifetime.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-11 h-11 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-[17px] mb-2">15+ Years Experience</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">Over a decade of solar project delivery across Uganda and East Africa, with a long list of satisfied customers.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-11 h-11 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-[17px] mb-2">German Engineering Standards</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">Our Ugandan-German team applies rigorous European engineering discipline to every project.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-11 h-11 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-[17px] mb-2">Top-Tier Equipment</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">We source only from globally recognised manufacturers — panels, inverters and battery systems alike.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-11 h-11 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-[17px] mb-2">Long-Term Warranties</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">Product and workmanship warranties provide lasting protection well beyond installation day.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 card-shadow card-shadow-hover">
+        <div class="w-11 h-11 rounded-xl bg-[#EAF4EE] flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="#217A3C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-[#1D1D1F] text-[17px] mb-2">Dedicated O&amp;M Team</h3>
+        <p class="text-[#6E6E73] text-sm leading-relaxed">Our own in-house service staff manage preventive maintenance and rapid response across all installations.</p>
+      </div>
+
+      <!-- Accent card -->
+      <div class="bg-[#217A3C] rounded-2xl p-8 card-shadow card-shadow-hover"
+           style="box-shadow:0 4px 16px rgba(33,122,60,.25),0 8px 32px rgba(33,122,60,.15);">
+        <div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2">East African Network</h3>
+        <p class="text-white/68 text-sm leading-relaxed">Serving 12+ countries across East Africa with deep local market knowledge and established regional partnerships.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PARTNERS / INSTALLERS  (light card)
+══════════════════════════════════════ -->
+<section class="bg-white py-20 lg:py-28">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+
+      <!-- Photo -->
+      <div class="relative rounded-2xl overflow-hidden card-shadow" style="aspect-ratio:4/3;">
+        <img src="https://placehold.co/720x540/0f3520/0f3520?text=+"
+             alt="Installer training programme" class="img-cover">
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#0B1A10]/50 via-transparent to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 z-10">
+          <div class="bg-white/95 backdrop-blur-sm rounded-xl p-4 card-shadow inline-block">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[#EAF4EE] flex items-center justify-center flex-shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="#217A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 010 7.75"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-display font-bold text-[#1D1D1F] text-sm">50+ Active Partners</div>
+                <div class="text-[#6E6E73] text-xs">across Uganda and East Africa</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div>
+        <div class="divider mb-5"></div>
+        <h2 class="font-display font-bold text-[#1D1D1F] mb-5 leading-tight"
+            style="font-size:clamp(26px,3.5vw,42px); letter-spacing:-.025em;">
+          Grow Your Business<br>with Solar
+        </h2>
+        <p class="text-[#6E6E73] text-[16px] leading-relaxed mb-7">
+          Are you an electrician, solar professional, or entrepreneur? Join the
+          Equator Solar reseller network and access premium products at preferential
+          pricing, technical training, and full project support.
+        </p>
+
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="#217A3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-[#1D1D1F] text-[15px] mb-0.5">Best-in-class products at partner pricing</div>
+              <div class="text-[#6E6E73] text-sm">Preferential rates across our full product range</div>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="#217A3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-[#1D1D1F] text-[15px] mb-0.5">Technical training &amp; certification</div>
+              <div class="text-[#6E6E73] text-sm">Build your solar expertise alongside our team</div>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#EAF4EE] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="#217A3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-[#1D1D1F] text-[15px] mb-0.5">Full system design &amp; quotation support</div>
+              <div class="text-[#6E6E73] text-sm">We back you from concept through to customer delivery</div>
+            </div>
+          </li>
+        </ul>
+
+        <a href="#contact" class="btn-primary">
+          Become a Partner
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CONTACT CTA  (green bg)
+══════════════════════════════════════ -->
+<section id="contact" class="bg-[#217A3C] py-20 lg:py-28 relative overflow-hidden">
+
+  <!-- Background ring watermark -->
+  <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/3 w-[600px] h-[600px] opacity-[.07] pointer-events-none">
+    <img src="brand_assets/EQSLOGO_graphic.png" alt="" class="w-full h-full object-contain">
+  </div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 lg:px-10 text-center">
+
+    <h2 class="font-display font-bold text-white mb-5 leading-tight"
+        style="font-size:clamp(30px,4.5vw,58px); letter-spacing:-.03em;">
+      Ready to Power<br>Your Project?
+    </h2>
+    <p class="text-white/70 text-lg leading-relaxed mb-10">
+      Speak to our team about your energy needs. We'll guide you from concept
+      through commissioning — at no obligation.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-14">
+      <a href="mailto:info@equatorsolargroup.com" class="btn-white">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Email Us
+      </a>
+      <a href="tel:+256000000000"
+         style="display:inline-flex;align-items:center;gap:7px;
+                font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;
+                padding:12px 26px;border-radius:100px;
+                border:1.5px solid rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.12);
+                text-decoration:none;transition:background .2s,border-color .2s,transform .2s;"
+         onmouseover="this.style.background='rgba(255,255,255,.22)';this.style.borderColor='rgba(255,255,255,.7)';this.style.transform='translateY(-1px)'"
+         onmouseout="this.style.background='rgba(255,255,255,.12)';this.style.borderColor='rgba(255,255,255,.4)';this.style.transform='translateY(0)'">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.19a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.18v1.74z"/>
+        </svg>
+        Call Us
+      </a>
+    </div>
+
+    <!-- Contact details -->
+    <div class="border-t border-white/20 pt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+      <div>
+        <div class="text-white/50 font-display font-semibold text-[10px] tracking-[.16em] uppercase mb-1.5">Location</div>
+        <div class="text-white font-medium text-sm">Kampala, Uganda</div>
+      </div>
+      <div>
+        <div class="text-white/50 font-display font-semibold text-[10px] tracking-[.16em] uppercase mb-1.5">Email</div>
+        <div class="text-white font-medium text-sm">info@equatorsolargroup.com</div>
+      </div>
+      <div>
+        <div class="text-white/50 font-display font-semibold text-[10px] tracking-[.16em] uppercase mb-1.5">Follow</div>
+        <div class="text-white font-medium text-sm">Equator Solar on LinkedIn</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="bg-[#0B1A10] pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+
+      <div class="md:col-span-5">
+        <img src="brand_assets/EQSLOGO-01.png" alt="Equator Solar" class="h-8 mb-5"
+             style="filter:brightness(0) invert(1);">
+        <p class="text-white/40 text-sm leading-relaxed max-w-xs">
+          Leading solar PV and energy efficiency solutions across Uganda and East Africa.
+          Engineering-grade quality, built to last.
+        </p>
+      </div>
+
+      <div class="md:col-span-3">
+        <div class="text-white/25 font-display font-semibold text-[11px] tracking-[.16em] uppercase mb-5">Solutions</div>
+        <ul class="space-y-3 text-sm text-white/50">
+          <li><a href="#solutions" class="hover:text-white transition-colors duration-200">Residential</a></li>
+          <li><a href="#solutions" class="hover:text-white transition-colors duration-200">Commercial</a></li>
+          <li><a href="#solutions" class="hover:text-white transition-colors duration-200">Industrial</a></li>
+          <li><a href="#solutions" class="hover:text-white transition-colors duration-200">Utility Scale</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-4">
+        <div class="text-white/25 font-display font-semibold text-[11px] tracking-[.16em] uppercase mb-5">Company</div>
+        <ul class="space-y-3 text-sm text-white/50">
+          <li><a href="#about"    class="hover:text-white transition-colors duration-200">About Us</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors duration-200">Services</a></li>
+          <li><a href="#projects" class="hover:text-white transition-colors duration-200">Projects</a></li>
+          <li><a href="#contact"  class="hover:text-white transition-colors duration-200">Contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-white/25 text-sm">&copy; 2025 Equator Solar Systems Ltd. All rights reserved.</p>
+      <div class="flex gap-6 text-sm text-white/25">
+        <a href="#" class="hover:text-white/60 transition-colors duration-200">Privacy Policy</a>
+        <a href="#" class="hover:text-white/60 transition-colors duration-200">Terms</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+<script>
+  const nav   = document.getElementById('main-nav');
+  const logo  = document.getElementById('nav-logo');
+  const navLinks = [
+    document.getElementById('nl1'),
+    document.getElementById('nl2'),
+    document.getElementById('nl3'),
+    document.getElementById('nl4'),
+  ];
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background          = 'rgba(255,255,255,.96)';
+      nav.style.backdropFilter      = 'blur(20px)';
+      nav.style.webkitBackdropFilter= 'blur(20px)';
+      nav.style.boxShadow           = '0 1px 0 rgba(0,0,0,.07)';
+      logo.style.filter             = 'none';
+      navLinks.forEach(l => l.style.color = '#1D1D1F');
+    } else {
+      nav.style.background          = 'transparent';
+      nav.style.backdropFilter      = 'none';
+      nav.style.webkitBackdropFilter= 'none';
+      nav.style.boxShadow           = 'none';
+      logo.style.filter             = 'brightness(0) invert(1)';
+      navLinks.forEach(l => l.style.color = 'rgba(255,255,255,.85)');
+    }
+  }, { passive:true });
+
+  document.getElementById('mob-btn').addEventListener('click', () => {
+    document.getElementById('mob-menu').classList.toggle('hidden');
+  });
+  document.querySelectorAll('#mob-menu a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('mob-menu').classList.add('hidden'));
+  });
+</script>
+
+</body>
+</html>
